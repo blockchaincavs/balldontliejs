@@ -9,8 +9,8 @@ npm install axios
 npm install dotenv
 ```
 
-## TESTS
-The Test directory gives examples of proper usage of the API.
+## Examples
+The tests directory gives examples of proper usage of the API.
 
 ## API Documentation
 [BALLDONTLIE API](https://docs.balldontlie.io/#introduction)
