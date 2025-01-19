@@ -5,10 +5,10 @@
 
 require('dotenv').config();
 const API_KEY = process.env.API_KEY;
-const NbaApi = require("./balldontliejs");
+const NbaApi = require("./src/balldontlie");
 
 const nbaApi = new NbaApi(2000, API_KEY);
 
 /**
- * Refer to tests/
+ * Refer to ./usage
  */

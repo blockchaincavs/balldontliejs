@@ -14,6 +14,9 @@ const nbaApi = new NbaApi(2000, API_KEY);
  */
 const playerIds = [237, 3, 78, 145];
 nbaApi.getSeasonAverages(season=2022, player_ids=playerIds)
-        .then((data) => {
+        .then( (data) => {
             console.log("------Player Averages by player ID and season------\n", data);
+        })
+        .catch( (error) => {
+            console.log(error);
         });

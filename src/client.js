@@ -5,6 +5,13 @@
  * 
  */
 
+const { ApiError, 
+    AuthenticationError,
+    BadRequestError,
+    ResourceNotFoundError,
+    RateLimitError,
+    ServerError
+} = require('./errors.js');
 const axios = require('axios');
 
 class Client {
@@ -17,7 +24,7 @@ class Client {
      */
     constructor(timeout = 2000, API_KEY = null) {
 
-        this.API_BASE_URL = "http://api.balldontlie.io/v1/";
+        this.API_BASE_URL = "http://api.balldontlie.io/v1";
 
         // create an axios instance with a common configuration
         this.apiInstance = axios.create({
@@ -33,12 +40,43 @@ class Client {
      */
     async request(endpoint, params = {}) {
         try {
+
             const response = await this.apiInstance.get(endpoint, { params });
             console.log("Request made to:", response.config.url);
+
             return response.data;
+            
         } catch (error) {
-            console.error("Error making API request:", error.config.url, error.message);
-            return null;
+            
+            const resource = error.config.url;
+            const { status, statusText } = error.response;
+            const message = statusText != undefined ? statusText : error.message; 
+
+            // Throw custom errors
+            if (axios.isAxiosError(error)) {
+
+                switch (status) {
+                    case 400:
+                        throw new BadRequestError(resource, message, status);
+                    case 401:
+                        throw new AuthenticationError(resource, message, status);
+                    case 404:
+                        throw new ResourceNotFoundError(resource, message, status);
+                    case 429:
+                        throw new RateLimitError(resource, message, status);
+                    case 500:
+                    case 502:
+                    case 503:
+                    case 504:
+                        throw new ServerError(resource, message, status);
+                    default:
+                        throw new ApiError(resource, message, status);
+                }
+            }
+
+            // Generic error, should not happen
+            throw new ApiError(endpoint, "An unexpected error occurred", 500);
+            
         }
     }
 }

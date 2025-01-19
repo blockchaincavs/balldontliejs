@@ -21,6 +21,9 @@ nbaApi.getGames(0, 10, [], [], [], false, startDate.toISOString(), endDate.toISO
   .then((data) => {
     console.log("------Games between start_date, end_date, 10 per page------");
     console.log("Games:", data);
+  })
+  .catch( (error) => {
+    console.log(error);
   });
 
 
@@ -28,19 +31,29 @@ nbaApi.getGames(0, 10, [], [], [], false, startDate.toISOString(), endDate.toISO
  * Requesting specific game by id
  */
 const game_id = 1038408;
-const game = nbaApi.getGameById(id=game_id)
-                .then((data) => {
-                    console.log("------Specific Game by id------");
-                    console.log("Game:" , data);
-                });
+nbaApi.getGameById(id=game_id)
+  .then((data) => {
+      console.log("------Specific Game by id------");
+      console.log("Game:" , data);
+  })
+  .catch( (error) => {
+    console.log(error);
+  });
 
 /**
  * Requesting all games for season 2023
  */
 const season = 2023;
 const getGames = async () => {
-   let data = await nbaApi.getGames(0, 10, undefined, season);
-   console.log("----Games for 2023 season, 10 per page----\n", data);
+
+  try {
+    let data = await nbaApi.getGames(0, 10, undefined, season);
+    console.log("----Games for 2023 season, 10 per page----\n", data);
+  } catch (error) {
+    console.log(error);
+  }
+
 }
+
 getGames();
 

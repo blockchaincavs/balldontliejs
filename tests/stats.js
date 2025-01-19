@@ -15,7 +15,12 @@ const nbaApi = new NbaApi(2000, API_KEY);
 const gameIds = [1038183, 1038184];
 nbaApi.getStats(null,null,null,null,null, gameIds)
         .then((stats) => {
+
             console.log("------Stats by Game ID Array------");
             console.log("------postseason param must be string------")
             console.log("Game stats:" , stats);
+
+        })
+        .catch( (error) => {
+            console.log(error);
         });

@@ -13,9 +13,13 @@ const nbaApi = new NbaApi(2000, API_KEY);
 /**
  * Requesting active players with last name james
  */
-nbaApi.getPlayers(undefined, undefined, undefined, undefined, "james", 14, undefined, true).then( (data) => {
-    console.log("----Requesting active players with last name tames from Lakers----\n", data);
-})
+nbaApi.getPlayers(undefined, undefined, undefined, undefined, "james", 14, undefined, true)
+    .then( (data) => {
+        console.log("----Requesting active players with last name tames from Lakers----\n", data);
+    })
+    .catch( (error) => {
+        console.log(error);
+    });
 
 /**
  * Requesting player by id.
@@ -27,37 +31,55 @@ let jeffGreen = async () => {
 }
 jeffGreen();
 
-nbaApi.getPlayerByName("lebron", undefined).then( (data) => {
-    console.log("------Player Info By Name------");
-    console.log("Player Info by Name:", data);
-});
+nbaApi.getPlayerByName("lebron", undefined)
+    .then( (data) => {
+        console.log("------Player Info By Name------");
+        console.log("Player Info by Name:", data);
+    })
+    .catch( (error) => {
+        console.log(error);
+    });
 
 /**
  * Requesting player by name using the players endpont
  */
-nbaApi.getPlayers(undefined, undefined, undefined,
-                "Stephen", "Curry").then( (data) => {
-
-    console.log("----Stephen Curry----\n", data);
-});
+nbaApi.getPlayers(undefined, undefined, undefined, "Stephen", "Curry")
+        .then( (data) => {
+            console.log("----Stephen Curry----\n", data);
+        })
+        .catch( (error) => {
+            console.log(error);
+        });
 
 /**
  * Requesting 2 players using the players endpoint
  */
-nbaApi.getPlayers(undefined, 2).then( (data) => {
-    console.log("----Players two players----\n", data);
-});
+nbaApi.getPlayers(undefined, 2)
+    .then( (data) => {
+        console.log("----Players two players----\n", data);
+    })
+    .catch( (error) => {
+        console.log(error);
+    });
 
 /**
  * Requesting players with first/last name james with team id 14 (L.A Lakers)
  */
-nbaApi.getPlayers(undefined, undefined, "james", undefined, undefined, 14).then( (data) => {
-    console.log("----Requesting players with first/last name james with team id 14----\n", data);
-})
+nbaApi.getPlayers(undefined, undefined, "james", undefined, undefined, 14)
+    .then( (data) => {
+        console.log("----Requesting players with first/last name james with team id 14----\n", data);
+    })
+    .catch( (error) => {
+        console.log(error);
+    });
 
 /**
  * Requesting players from teams 14, 15
  */
-nbaApi.getPlayers(undefined, undefined, undefined, undefined, undefined, [14, 15]).then( (data) => {
-    console.log("----Players from team id 14----\n", data);
-})
+nbaApi.getPlayers(undefined, undefined, undefined, undefined, undefined, [14, 15])
+    .then( (data) => {
+        console.log("----Players from team id 14----\n", data);
+    })
+    .catch( (error) => {
+        console.log(error);
+    });

@@ -47,7 +47,7 @@ class BallDontLieApi {
    * @return {Object|null} JSON-encoded content of HTTP response or null if error.
    */
   async getPlayerById(id = 237) {
-    const endpoint = `players/${id}`;
+    const endpoint = `/players/${id}`;
     if (id <= 0) {
       console.error("Invalid Player ID");
       return null;
@@ -62,7 +62,7 @@ class BallDontLieApi {
    * @return {Array|null} JSON array of players or null if error.
    */
   async getPlayerByName(first_name="", last_name="") {
-    const endpoint = "players";
+    const endpoint = "/players";
     const params = { cursor: 0, per_page: 25, first_name, last_name };
     return this.client.request(endpoint, params);
   }
@@ -80,7 +80,7 @@ class BallDontLieApi {
    * @return {Object|null} - JSON array of games and Meta information or null if error.
    */
   async getPlayers(cursor=0, per_page=25, search="", first_name="", last_name="", team_ids=[], player_ids=[], active=false) {
-    const endpoint = active ? "players/active" : "players"
+    const endpoint = active ? "/players/active" : "/players"
     const params = {cursor, per_page, search, first_name, last_name, 'team_ids[]':team_ids, 'player_ids[]':player_ids};
     return this.client.request(endpoint, params);
   }
@@ -92,7 +92,7 @@ class BallDontLieApi {
    * @return {Object|null} - Teams (JSON array of teams) and Meta information or null if error.
    */
   async getTeams(cursor = 0, per_page = 30) {
-    const endpoint = "teams";
+    const endpoint = "/teams";
     const params = { cursor, per_page };
     return this.client.request(endpoint, params);
   }
@@ -110,7 +110,7 @@ class BallDontLieApi {
    * @return {Object|null} JSON array of games and Meta information or null if error.
    */
   async getGames(cursor=0, per_page=25, dates=[], seasons=[], team_ids=[], post_season="false", start_date=null, end_date=null) {
-    const endpoint = "games";
+    const endpoint = "/games";
     const params = {
         cursor, per_page, 'dates[]': dates, 'seasons[]': seasons, 'team_ids[]': team_ids, 
         post_season, start_date, end_date 
@@ -125,7 +125,7 @@ class BallDontLieApi {
    * @return {Object|null} JSON-encoded content of HTTP response or null if error.
    */
   async getGameById(id = 440) {
-    const endpoint = `games/${id}`;
+    const endpoint = `/games/${id}`;
     return this.client.request(endpoint);
   }
 
@@ -143,7 +143,7 @@ class BallDontLieApi {
    * @return {Object|null} JSON array of stats and Meta information or null if error.
    */
   async getStats(cursor = 0, per_page = 25, dates = [], seasons = [], player_ids = [], game_ids = [], postseason = "false", start_date = null, end_date = null) {
-    const endpoint = "stats";
+    const endpoint = "/stats";
     const params = { 
       cursor, per_page, 'dates[]': dates, 'seasons[]':seasons, 'player_ids[]':player_ids, 
       'game_ids[]': game_ids, postseason, start_date, end_date 
@@ -158,7 +158,7 @@ class BallDontLieApi {
    * @return {Array|null} JSON array of player averages or null if error.
    */
   async getSeasonAverages(season=2023, player_ids = []) {
-    const endpoint = "season_averages";
+    const endpoint = "/season_averages";
     const params = { season, "player_ids[]": player_ids };
     return this.client.request(endpoint, params);
   }
@@ -168,7 +168,7 @@ class BallDontLieApi {
   * @return {Object|null} JSON array of live box scores or null if error.
   */
   async getBoxScoresLive() {
-    const endpoint = "box_scores/live";
+    const endpoint = "/box_scores/live";
     return this.client.request(endpoint);
   }
 
@@ -178,7 +178,7 @@ class BallDontLieApi {
   * @return {Object|null} JSON array of box scores or error if error.
   */
   async getBoxScores(date) {
-    const endpoint = "box_scores";
+    const endpoint = "/box_scores";
     const params = { date };
     return this.client.request(endpoint, params);
   }
