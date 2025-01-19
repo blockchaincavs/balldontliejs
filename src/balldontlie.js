@@ -1,7 +1,7 @@
 /**
  * 
  * @author blockchaincavs
- * @class NbaApi
+ * @class BallDontLieApi
  * @description This class will interface with the balldontlie api.
  * 
  * Endpoint: https://www.balldontlie.io/api/v1/players
@@ -20,20 +20,17 @@
  * 
  */
 
-const axios = require('axios');
-require('dotenv').config();
+const Client = require('../src/client');
 
 class BallDontLieApi {
+
   /**
    * @description The NbaApi Class will make http requests to various balldontlie endpoints.
    */
   constructor(timeout = 2000, API_KEY=null) {
-    this.API_BASE_URL = "http://api.balldontlie.io/v1/";
 
-    // create an axios instance with a common configuration
-    this.apiInstance = axios.create({
-      baseURL: this.API_BASE_URL, timeout, headers: {Authorization: API_KEY}
-    });
+    this.client = new Client(timeout, API_KEY);
+
   }
 
   /**
@@ -49,13 +46,13 @@ class BallDontLieApi {
    * @param {number} id - The player id to retrieve.
    * @return {Object|null} JSON-encoded content of HTTP response or null if error.
    */
-  async playerById(id = 237) {
+  async getPlayerById(id = 237) {
     const endpoint = `players/${id}`;
     if (id <= 0) {
       console.error("Invalid Player ID");
       return null;
     }
-    return this.get(endpoint);
+    return this.client.request(endpoint);
   }
 
   /**
@@ -64,10 +61,10 @@ class BallDontLieApi {
    * * @param {string} last_name - The name to search for.
    * @return {Array|null} JSON array of players or null if error.
    */
-  async playerByName(first_name="", last_name="") {
+  async getPlayerByName(first_name="", last_name="") {
     const endpoint = "players";
     const params = { cursor: 0, per_page: 25, first_name, last_name };
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
   /**
@@ -82,10 +79,10 @@ class BallDontLieApi {
    * @param {boolean} active - Default false. Indacates whether to request from /players/active endpoint
    * @return {Object|null} - JSON array of games and Meta information or null if error.
    */
-  async players(cursor=0, per_page=25, search="", first_name="", last_name="", team_ids=[], player_ids=[], active=false) {
+  async getPlayers(cursor=0, per_page=25, search="", first_name="", last_name="", team_ids=[], player_ids=[], active=false) {
     const endpoint = active ? "players/active" : "players"
     const params = {cursor, per_page, search, first_name, last_name, 'team_ids[]':team_ids, 'player_ids[]':player_ids};
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
   /**
@@ -94,10 +91,10 @@ class BallDontLieApi {
    * @param {number} per_page - Number of items per page. Default is 30 (only 30 teams in NBA).
    * @return {Object|null} - Teams (JSON array of teams) and Meta information or null if error.
    */
-  async teams(cursor = 0, per_page = 30) {
+  async getTeams(cursor = 0, per_page = 30) {
     const endpoint = "teams";
     const params = { cursor, per_page };
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
   /**
@@ -112,14 +109,14 @@ class BallDontLieApi {
    * @param {string} end_date - YYYY-MM-DD select games that occur on or before this date.
    * @return {Object|null} JSON array of games and Meta information or null if error.
    */
-  async games(cursor=0, per_page=25, dates=[], seasons=[], team_ids=[], post_season="false", start_date=null, end_date=null) {
+  async getGames(cursor=0, per_page=25, dates=[], seasons=[], team_ids=[], post_season="false", start_date=null, end_date=null) {
     const endpoint = "games";
     const params = {
         cursor, per_page, 'dates[]': dates, 'seasons[]': seasons, 'team_ids[]': team_ids, 
         post_season, start_date, end_date 
     };
     
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
   /**
@@ -127,9 +124,9 @@ class BallDontLieApi {
    * @param {number} id - The game id to retrieve.
    * @return {Object|null} JSON-encoded content of HTTP response or null if error.
    */
-  async gameById(id = 440) {
+  async getGameById(id = 440) {
     const endpoint = `games/${id}`;
-    return this.get(endpoint);
+    return this.client.request(endpoint);
   }
 
   /**
@@ -145,13 +142,13 @@ class BallDontLieApi {
    * @param {string} end_date - YYYY-MM-DD select games that occur on or before this date.
    * @return {Object|null} JSON array of stats and Meta information or null if error.
    */
-  async stats(cursor = 0, per_page = 25, dates = [], seasons = [], player_ids = [], game_ids = [], postseason = "false", start_date = null, end_date = null) {
+  async getStats(cursor = 0, per_page = 25, dates = [], seasons = [], player_ids = [], game_ids = [], postseason = "false", start_date = null, end_date = null) {
     const endpoint = "stats";
     const params = { 
       cursor, per_page, 'dates[]': dates, 'seasons[]':seasons, 'player_ids[]':player_ids, 
       'game_ids[]': game_ids, postseason, start_date, end_date 
     };
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
   /**
@@ -160,19 +157,19 @@ class BallDontLieApi {
    * @param {Array} player_ids - Array of player ids.
    * @return {Array|null} JSON array of player averages or null if error.
    */
-  async seasonAverages(season=2023, player_ids = []) {
+  async getSeasonAverages(season=2023, player_ids = []) {
     const endpoint = "season_averages";
     const params = { season, "player_ids[]": player_ids };
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
   /**
   * Get live box scores.
   * @return {Object|null} JSON array of live box scores or null if error.
   */
-  async boxScoresLive() {
+  async getBoxScoresLive() {
     const endpoint = "box_scores/live";
-    return this.get(endpoint);
+    return this.client.request(endpoint);
   }
 
   /**
@@ -180,28 +177,12 @@ class BallDontLieApi {
   * @param {string} date - The date in YYYY-MM-DD format.
   * @return {Object|null} JSON array of box scores or error if error.
   */
-  async boxScores(date) {
+  async getBoxScores(date) {
     const endpoint = "box_scores";
     const params = { date };
-    return this.get(endpoint, params);
+    return this.client.request(endpoint, params);
   }
 
-  /**
-   * Generic method to make HTTP GET requests using Axios.
-   * @param {string} endpoint - The API endpoint.
-   * @param {Object} params - Query parameters.
-   * @return {Object|null} JSON-encoded content of HTTP response or null if error.
-   */
-  async get(endpoint, params = {}) {
-    try {
-      const response = await this.apiInstance.get(endpoint, { params });
-      console.log("Request made to:", response.config.url);
-      return response.data;
-    } catch (error) {
-      console.error("Error making API request:", error.config.url, error.message);
-      return null;
-    }
-  }
 }
 
 module.exports = BallDontLieApi;
