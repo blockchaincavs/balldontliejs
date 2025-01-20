@@ -5,14 +5,14 @@
  * 
  */
 
-const { ApiError, 
+import { ApiError, 
     AuthenticationError,
     BadRequestError,
     ResourceNotFoundError,
     RateLimitError,
     ServerError
-} = require('./errors.js');
-const axios = require('axios');
+} from './errors.js';
+import axios from 'axios';
 
 class Client {
 
@@ -81,4 +81,4 @@ class Client {
     }
 }
 
-module.exports = Client;
+export default Client;

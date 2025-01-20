@@ -32,7 +32,8 @@ class ResourceNotFoundError extends ApiError {}
 class RateLimitError extends ApiError {}
 class ServerError extends ApiError {}
 
-module.exports = {
+// es modules export
+export {
     ApiError,
     AuthenticationError,
     BadRequestError,

@@ -3,8 +3,9 @@
  * @description How to use the BALLDONTLIE API /box_scores endpoint
  */
 
-require('dotenv').config();
-const NbaApi = require('../src/balldontlie');
+import NbaApi from '../src/balldontlie.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const API_KEY = process.env.API_KEY;
 const nbaApi = new NbaApi(2000, API_KEY);

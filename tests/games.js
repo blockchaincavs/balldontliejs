@@ -3,12 +3,13 @@
  * @description How to use the BALLDONTLIE API /games and /games/<ID> endpoint
  */
 
-require('dotenv').config();
-const NbaApi = require('../src/balldontlie');
+// es modules import
+import NbaApi from '../src/balldontlie.js';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const API_KEY = process.env.API_KEY;
 const nbaApi = new NbaApi(2000, API_KEY);
-
 
 /**
  * Requesting Games by date
@@ -31,7 +32,7 @@ nbaApi.getGames(0, 10, [], [], [], false, startDate.toISOString(), endDate.toISO
  * Requesting specific game by id
  */
 const game_id = 1038408;
-nbaApi.getGameById(id=game_id)
+nbaApi.getGameById(game_id)
   .then((data) => {
       console.log("------Specific Game by id------");
       console.log("Game:" , data);

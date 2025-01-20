@@ -20,7 +20,7 @@
  * 
  */
 
-const Client = require('../src/client');
+import Client from '../src/client.js';
 
 class BallDontLieApi {
 
@@ -185,4 +185,4 @@ class BallDontLieApi {
 
 }
 
-module.exports = BallDontLieApi;
+export default BallDontLieApi;
