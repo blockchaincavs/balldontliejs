@@ -1,4 +1,5 @@
 # node files
+package*
 node_modules
 
 # Dotenv file
