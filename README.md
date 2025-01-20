@@ -12,5 +12,9 @@ npm install dotenv
 ## Examples
 The tests directory gives examples of proper usage of the API.
 
+## Hook
+A post-checkout hook is used to install dependencies when a
+git submodule update or git submodule init are used
+
 ## API Documentation
 [BALLDONTLIE API](https://docs.balldontlie.io/#introduction)
