@@ -1,6 +1,6 @@
 # node files
-package*
 node_modules
+package-lock.json
 
 # Dotenv file
 .env

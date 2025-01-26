@@ -49,7 +49,8 @@ class Client {
         } catch (error) {
             
             const resource = error.config.url;
-            const { status, statusText } = error.response;
+            const { statusText } = error.response;
+            const status = error.status || 500;
             const message = statusText != undefined ? statusText : error.message; 
 
             // Throw custom errors

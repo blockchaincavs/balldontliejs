@@ -1,0 +1,29 @@
+
+{
+  "name": "balldontliejs",
+  "version": "1.0.0",
+  "description": "The balldontliejs.js class can be used to request data from the BALLDONTLIE API.",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blockchaincavs/balldontliejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/blockchaincavs/balldontliejs/issues"
+  },
+  "homepage": "https://github.com/blockchaincavs/balldontliejs#readme",
+  "dependencies": {
+    "axios": "^1.7.9",
+    "dotenv": "^16.4.7"
+  }
+}
