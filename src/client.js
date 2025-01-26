@@ -47,14 +47,14 @@ class Client {
             return response.data;
             
         } catch (error) {
-            
-            const resource = error.config.url;
-            const { statusText } = error.response;
-            const status = error.status || 500;
-            const message = statusText != undefined ? statusText : error.message; 
 
             // Throw custom errors
             if (axios.isAxiosError(error)) {
+
+                const resource = error.config.url;
+                const statusText = error.response || "An unexpected error occurred";
+                const status = error.status || 500;
+                const message = statusText != undefined ? statusText : error.message; 
 
                 switch (status) {
                     case 400:
