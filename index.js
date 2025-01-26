@@ -8,7 +8,7 @@ import NbaApi from './src/balldontlie.js';
 import dotenv from 'dotenv';
 dotenv.config();
 
-const API_KEY = process.env.API_KEY;
+const API_KEY = process.env.BALL_DONT_LIE_API_KEY;
 const nbaApi = new NbaApi(2000, API_KEY);
 
 /**

@@ -44,7 +44,7 @@ class BallDontLieApi {
   /**
    * Get single player info by player id.
    * @param {number} id - The player id to retrieve.
-   * @return {Object|null} JSON-encoded content of HTTP response or null if error.
+   * @return {Promise<Object> | null} JSON-encoded content of HTTP response or null if error.
    */
   async getPlayerById(id = 237) {
     const endpoint = `/players/${id}`;
@@ -58,8 +58,8 @@ class BallDontLieApi {
   /**
    * Get all players with name=name in their name.
    * @param {string} first_name - The name to search for.
-   * * @param {string} last_name - The name to search for.
-   * @return {Array|null} JSON array of players or null if error.
+   * @param {string} last_name - The name to search for.
+   * @return {Promise<Array>} JSON array of players or null if error.
    */
   async getPlayerByName(first_name="", last_name="") {
     const endpoint = "/players";
@@ -77,7 +77,7 @@ class BallDontLieApi {
    * @param {Array} team_ids - Array of team ids.
    * @param {Array} player_ids - Array of player ids.
    * @param {boolean} active - Default false. Indacates whether to request from /players/active endpoint
-   * @return {Object|null} - JSON array of games and Meta information or null if error.
+   * @return {Promise<Object>} - JSON array of games and Meta information or null if error.
    */
   async getPlayers(cursor=0, per_page=25, search="", first_name="", last_name="", team_ids=[], player_ids=[], active=false) {
     const endpoint = active ? "/players/active" : "/players"
@@ -89,7 +89,7 @@ class BallDontLieApi {
    * Get all NBA teams.
    * @param {number} cursor - Page number to request. Default is page 0.
    * @param {number} per_page - Number of items per page. Default is 30 (only 30 teams in NBA).
-   * @return {Object|null} - Teams (JSON array of teams) and Meta information or null if error.
+   * @return {Promise<Object>} - Teams (JSON array of teams) and Meta information or null if error.
    */
   async getTeams(cursor = 0, per_page = 30) {
     const endpoint = "/teams";
@@ -107,7 +107,7 @@ class BallDontLieApi {
    * @param {string} post_season - Whether it's post-season or not.
    * @param {string} start_date - YYYY-MM-DD select games that occur on or after this date.
    * @param {string} end_date - YYYY-MM-DD select games that occur on or before this date.
-   * @return {Object|null} JSON array of games and Meta information or null if error.
+   * @return {Promise<Object>} JSON array of games and Meta information or null if error.
    */
   async getGames(cursor=0, per_page=25, dates=[], seasons=[], team_ids=[], post_season="false", start_date=null, end_date=null) {
     const endpoint = "/games";
@@ -122,7 +122,7 @@ class BallDontLieApi {
   /**
    * Get a specific game by id.
    * @param {number} id - The game id to retrieve.
-   * @return {Object|null} JSON-encoded content of HTTP response or null if error.
+   * @return {Promise<Object>} JSON-encoded content of HTTP response or null if error.
    */
   async getGameById(id = 440) {
     const endpoint = `/games/${id}`;
@@ -140,7 +140,7 @@ class BallDontLieApi {
    * @param {string} postseason - Whether it's post-season or not (string true or false).
    * @param {string} start_date - YYYY-MM-DD select games that occur on or after this date.
    * @param {string} end_date - YYYY-MM-DD select games that occur on or before this date.
-   * @return {Object|null} JSON array of stats and Meta information or null if error.
+   * @return {Promise<Object>} JSON array of stats and Meta information or null if error.
    */
   async getStats(cursor = 0, per_page = 25, dates = [], seasons = [], player_ids = [], game_ids = [], postseason = "false", start_date = null, end_date = null) {
     const endpoint = "/stats";
@@ -155,7 +155,7 @@ class BallDontLieApi {
    * Get season averages of specific players.
    * @param {number} season - The season to retrieve averages from.
    * @param {Array} player_ids - Array of player ids.
-   * @return {Array|null} JSON array of player averages or null if error.
+   * @return {Promise<Array>} JSON array of player averages or null if error.
    */
   async getSeasonAverages(season=2023, player_ids = []) {
     const endpoint = "/season_averages";
@@ -165,7 +165,7 @@ class BallDontLieApi {
 
   /**
   * Get live box scores.
-  * @return {Object|null} JSON array of live box scores or null if error.
+  * @return {Promise<Object>} JSON array of live box scores or null if error.
   */
   async getBoxScoresLive() {
     const endpoint = "/box_scores/live";
@@ -175,7 +175,7 @@ class BallDontLieApi {
   /**
   * Get box scores for a specific date.
   * @param {string} date - The date in YYYY-MM-DD format.
-  * @return {Object|null} JSON array of box scores or error if error.
+  * @return {Promise<Object>} JSON array of box scores or error if error.
   */
   async getBoxScores(date) {
     const endpoint = "/box_scores";

@@ -36,7 +36,7 @@ class Client {
      * Generic method to make HTTP GET requests using Axios.
      * @param {string} endpoint - The API endpoint.
      * @param {Object} params - Query parameters.
-     * @return {Object|null} JSON-encoded content of HTTP response or null if error.
+     * @return {Object} JSON-encoded content of HTTP response or null if error.
      */
     async request(endpoint, params = {}) {
         try {
