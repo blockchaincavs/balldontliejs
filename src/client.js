@@ -17,32 +17,30 @@ import axios from 'axios';
 class Client {
 
     /**
-     * 
      * @param {string|null} API_KEY 
      * @param {Number} timeout 
+     * @param {String} baseUrl
      * @description The axios client will be set up with 
      */
-    constructor(timeout = 2000, API_KEY = null) {
-
-        this.API_BASE_URL = "http://api.balldontlie.io/v1";
+    constructor(timeout = 2000, baseUrl = "", API_KEY = null) {
 
         // create an axios instance with a common configuration
         this.apiInstance = axios.create({
-            baseURL: this.API_BASE_URL, timeout, headers: {Authorization: API_KEY}
+            baseURL: baseUrl, timeout, headers: {Authorization: API_KEY}
         });
     }
 
     /**
-     * Generic method to make HTTP GET requests using Axios.
-     * @param {string} endpoint - The API endpoint.
-     * @param {Object} params - Query parameters.
-     * @return {Object} JSON-encoded content of HTTP response or null if error.
+     * @description Generic method to make HTTP GET requests using Axios.
+     * @param {string} endpoint The API endpoint.
+     * @param {Object} params Query parameters.
+     * @return {Promise<Object>} JSON-encoded content of HTTP response or null if error.
      */
     async request(endpoint, params = {}) {
         try {
 
             const response = await this.apiInstance.get(endpoint, { params });
-            console.log("Request made to:", response.config.url);
+            console.log("Response Received From:", response.config.url);
 
             return response.data;
             
