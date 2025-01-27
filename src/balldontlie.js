@@ -29,7 +29,7 @@ class BallDontLieApi {
    */
   constructor(timeout = 2000, API_KEY=null) {
 
-    this.BASE_URL = "http://api.balldontlie.io/v1";
+    this.BASE_URL = "https://api.balldontlie.io/v1";
     this.client = new Client(timeout, this.BASE_URL, API_KEY);
 
   }
