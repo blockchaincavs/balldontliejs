@@ -12,12 +12,12 @@ const API_KEY = process.env.BALLDONTLIE_API_KEY;
 const nbaApi = new NbaApi(2000, API_KEY);
 
 /**
- * requesting season average data of 4 different players for 2022 season
+ * requesting season average data for player 237 (lebron james) 2022 season
  */
-const playerIds = [237, 3, 78, 145];
-nbaApi.getSeasonAverages(2022, playerIds)
+const playerId = 237;
+nbaApi.getSeasonAverages(2022, playerId)
         .then( (data) => {
-            console.log("------Player Averages by player ID and season------\n", data);
+            console.log(`------Player Averages for player id ${playerId}------\n`, data);
         })
         .catch( (error) => {
             console.log(error);

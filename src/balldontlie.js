@@ -154,13 +154,13 @@ class BallDontLieApi {
 
   /**
    * @description Get season averages of specific players.
-   * @param {number} season The season to retrieve averages from.
-   * @param {Array} player_ids Array of player ids.
+   * @param {number} season The season to retrieve player averages from.
+   * @param {Number} player_id .
    * @return {Promise<Array>} JSON array of player averages or null if error.
    */
-  async getSeasonAverages(season=2023, player_ids = []) {
+  async getSeasonAverages(season=2023, player_id) {
     const endpoint = "/season_averages";
-    const params = { season, "player_ids[]": player_ids };
+    const params = { season, player_id };
     return this.client.request(endpoint, params);
   }
 
