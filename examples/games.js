@@ -58,3 +58,7 @@ const getGames = async () => {
 
 getGames();
 
+const gameData = await nbaApi.getGames(0, 10, "2025-06-22");
+console.log("----Games for specific date----")
+console.log(gameData);
+

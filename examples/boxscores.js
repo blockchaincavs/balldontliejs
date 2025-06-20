@@ -19,3 +19,6 @@ nbaApi.getBoxScores(gamesDate.toISOString())
     .catch( (error) => {
         console.log(error);
     });
+
+const gameData = await nbaApi.getBoxScores("2025-06-22");
+console.log(gameData);

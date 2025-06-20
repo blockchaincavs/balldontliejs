@@ -10,7 +10,7 @@ npm install dotenv
 ```
 
 ## Examples
-The tests directory gives examples of proper usage of the API.
+The examples directory gives examples of proper usage of the API.
 
 ## API Documentation
 [BALLDONTLIE API](https://docs.balldontlie.io/#introduction)
